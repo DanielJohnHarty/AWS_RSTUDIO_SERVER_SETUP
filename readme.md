@@ -33,3 +33,26 @@ The VPC is the boundary of this particular cloud space. The availability zone re
 The subnet is a partitioned off part of the VPC which can be configured in a specific way for a specific purpose.
 
 ![InfrastructureOverviewWithCidrBlock](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/SolutionStructure.png)
+![browsing_to_instance](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/browsing_to_instance.png)
+
+![connecting_to_instance](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/connecting_to_instance.png)
+
+![image_type](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/image_type.png)
+
+![instance_description](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/instance_description.png)
+
+![instance_details](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/instance_details.png)
+
+![instance_details2](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/instance_details2.png)
+
+![routetable_routes](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/routetable_routes.png)
+
+![routetable_subnet_association](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/routetable_subnet_association.png)
+
+![security_group_inbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_inbound_rules.png)
+
+![security_group_outbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_outbound_rules.png)
+
+![SolutionStructure](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/SolutionStructure.png)
+
+
