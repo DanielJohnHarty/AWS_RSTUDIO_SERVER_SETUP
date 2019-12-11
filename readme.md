@@ -7,21 +7,21 @@ Using AWS, you can spin up a free EC2 instance, install RStudio-server on it and
 Requirements:
 
 - [x] A credit card - this tutorial uses free AWS services but creating an AWS account requires a payment method for **potential** future billing
-- [x] [An ASW Account]([https://aws.amazon.com/console/) - Go ahead and create one!
-- [x] Command line interface tool (powershell, bash, terminal, cmd are the most common) to remote access your AWS instance.  ***These are usually installed by default on all operating systems*.**
+- [x] [An ASW Account](https://aws.amazon.com/console/) - Go ahead and create one!
+- [x] A command line interface tool (powershell, bash, terminal, cmd are the most common) to remote access your AWS instance.  ***These are usually installed by default on all operating systems*.**
 
-#### Summary of Steps
+#### What you'll be doing:
  
-1. Create your Virtual Private Cloud (VPC) ***[1 minute]***
-2. Create a *subnet* in your VPC for your RStudio instance to reside in ***[1 minute]***
-3. Give your VPC an internet gateway ***[1 minute]***
-4. Associate your subnet with the VPC's internet gateway to make it a *public subnet* ***[1 minute]***
-5. Create/Configure your VPC's route table ***[1 minute]***
-6. Create a *Security Group* to accept or ignore requests to access your RStudio ***[1 minute]***
-7. Create your EC2 *(Amazon Elastic Cloud Computer)* running your RStudio-service instance.  ***[5 minutes]***
-8. Connect to your RStudio from your internet browser ***[30 seconds]***
+1. Creating your Virtual Private Cloud (VPC) ***[1 minute]***
+2. Creating a *subnet* in your VPC for your RStudio instance to reside in ***[1 minute]***
+3. Giving your VPC an internet gateway ***[1 minute]***
+4. Associating your subnet to the VPC's internet gateway to make it a *public subnet* with internet access ***[1 minute]***
+5. Creating and configuring your VPC's route table ***[1 minute]***
+6. Creating a *Security Group* to allow or ignore requests to access your RStudio instance ***[1 minute]***
+7. Creating an EC2 instance *(Amazon Elastic Cloud Computer)* running your RStudio-service.  ***[5 minutes]***
+8. Connecting to your RStudio from your internet browser ***[30 seconds]***
 
-As you can see, the process is fast (especially with a tutorial). However if it takes time, or something is confusing or doesn't work as expected, don't despair. 
+As you can see, the process is fast (especially with a tutorial). However if it takes time, or something doesn't work as expected, double check the steps and describe the problem to Google - maybe it has an answer. 
 
 AWS is a simplified wrapper around a massively complex system.  Just because the steps look easy, doesn't mean there isn't a world of complexity underneath it.
 
@@ -31,17 +31,22 @@ Snacks and coffee on hand make for an ideal study environment.
 
 ## Step by step in depth
 
-This image shows the basic overview of our very simple AWS infrastructure.
-The VPC is the boundary of this particular cloud space. The availability zone refers to where the AWS hardware actually resides.
-The subnet is a partitioned off part of the VPC which can be configured in a specific way for a specific purpose.
+This image shows a basic overview of a very simple AWS infrastructure.
+The VPC (Virtual Private Cloud) is the boundary of our AWS cloud space. It's created on physical hardware in a physical region of the globe, identified by the region. A region has multiple, independent availability zones which are connected in a high velocity network. There are multiple availability zones in each region so that failures in one can be backed up by others in the region.
+
+The subnet is a partitioned of part of the VPC which servers and databases reside in.
 
 ![SolutionStructure](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/SolutionStructure.png)
 
-## Step by Step Overview With Time Estimates
+## Step by Step (Walkthrough)
+ 
+ The following steps require you to be logged in to your AWS console environment. 
+ 
+ Before you start going through the steps, take  a moment to familiarize yourself with the AWS console interface. Different services can be found by clicking the services button in the top left of the screen, and then shortcuts on the left hand side will take you to the necessary pages and forms to manage the selected service.
  
 ### Create your Virtual Private Cloud (VPC) ***[1 minute]***
 
-A fairly simple process here. Click on services in the top right of your browser and search for VPC. You will be redirected to a space where you can create and manange your VPCs. Explore the interface and find the button to create a new VPC. Follow the instructions onscreen and set CIDR block to **10.0.0.0/16**.
+This is a fairly simple process. Click on services in the top right of your browser and search for VPC. You will be redirected to a space where you can create and manange your VPCs. Explore the interface and find the button to create a new VPC. Follow the instructions onscreen and set CIDR block to **10.0.0.0/16**.
 
 ### Create a *subnet* in your VPC for your instance to reside in ***[1 minute]***
 
@@ -84,25 +89,23 @@ When your security group is created, update its inbound and outbound rules as th
 
 ![security_group_outbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_outbound_rules)
 
-So why are we doing this?
+***What's a security group for?***
 
-In order to access the future servers and instances in your AWS infrastructure, you will need to prove who you are and that you are permitted to access. 
-
-During creation of a server/EC2 instance, you can stipulate which security groups should have access to your instances. When you generate an 'ssh key' (an incomprehensible, enrypted document) you will use it as a privileged key card, allowing you access. 
+Security groups act as firewalls for your AWS instances. Their configuration defines what kind of requests are permitted access to the device they're protecting. Configuration comes down to request protocol, source ip address and the port they are received on. e.g. We could configure a security group to only accept ssh requests on port 22 from a specific PC in your house. The opposite end of the scale would be allowing all traffic from anywhere.
 
 ### Create your EC2 *(Amazon Elastic Cloud Computer)* running your RStudio-service instance ***[5 minutes]***
 
 Finally the good stuff! 
 
-We've actually done most of the set-up work too so this part is simple.
+We've actually done most of the set-up work so this part is simple.
 
 Click the 'Services' link at the top left of the screen and search for the EC2 service. Click it and press the **'Launch Instance'** button.
 
-This tutorial has parts has been tested using the Ubuntu operating system, so on the first screen where you define the baseline of your new instance, choose Ubuntu:
+This tutorial has parts has been tested using the Ubuntu operating system, so on the first screen where you define the baseline of your new instance, choose Ubuntu 18.04:
 
 ![image_type](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/image_type.png)
 
-On each screen, press the button on the bottom right which goes to the next step. *There are many opportunities to press a button which will skip steps - avoid that! Make sure that you see every screen to avoid that something you don't want ends up in your final EC2 instance.*
+> The following screens can passed one by one but can too easily be skipped, instead launching directly the instance with defulat values. The danger default values is that you can't be sure if your instance will be as cheap or as performant as you'd like. For this tutorial, default values will not work - so avoid skipping any pages for now.
 
 In the next screen *(Configure Instance Details)*, most of the form can be left as is, but you will need to specify the VPC, the subnet, ensure that automatic assignment of an elastic IP are set:
 
