@@ -87,7 +87,7 @@ When your security group is created, update its inbound and outbound rules as th
 
 ![security_group_inbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_inbound_rules.png)
 
-![security_group_outbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_outbound_rules)
+![security_group_outbound_rules](https://github.com/DanielJohnHarty/AWS_RSTUDIO_SERVER_SETUP/blob/master/Images/security_group_outbound_rules.png)
 
 ***What's a security group for?***
 
